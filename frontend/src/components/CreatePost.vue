@@ -1,5 +1,5 @@
 <template>
-    <div class="create-post animate__fadeIn animate__animated">
+    <div class="create-post animate__fadeIn animate__animated z-10">
         <div class="status_modal">
             <form>
                 <div class="status_header">

@@ -6,7 +6,7 @@
         >
             <textarea
                 name="message"
-                placeholder="Type something..."
+                placeholder="Suy nghĩ của bạn..."
                 class="w-full rounded-lg p-2 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400"
             ></textarea>
             <footer class="flex justify-between mt-2">

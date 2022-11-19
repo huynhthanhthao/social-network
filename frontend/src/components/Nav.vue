@@ -10,12 +10,15 @@
 
         <!-- search bar -->
         <!-- <div class="hidden sm:block flex-shrink flex-grow-0 justify-start px-2"> -->
-        <div class="relative hidden sm:block flex-shrink flex-grow-0">
+
+        <div class="relative hidden sm:block flex-shrink flex-grow-0 z-1">
             <input
                 type="text"
                 class="bg-purple-white bg-gray-100 rounded-lg border-0 p-3 w-full"
-                placeholder="Search somthing..."
+                placeholder="Tìm kiếm bạn bè..."
                 style="min-width: 400px"
+                v-model="searchQuery"
+                @input="isSearching = true"
             />
             <div class="absolute top-0 right-0 p-4 pr-3 text-purple-lighter">
                 <svg
@@ -33,43 +36,34 @@
                     ></path>
                 </svg>
             </div>
+            <div class="item-search relative" v-if="searchQuery">
+                <div
+                    class="w-[100%] rounded bg-slate-200 shadow-2xl flex flex-col justify-center items-center absolute z-[1] py-1 px-2"
+                >
+                    <p v-if="isSearching" class="text-slate-800 font-semibold">
+                        Đang tìm kiếm...
+                    </p>
+                    <p
+                        v-else-if="friendsSearch.length == 0"
+                        class="text-slate-800 font-semibold"
+                    >
+                        Không có kết quả.
+                    </p>
+                    <ItemSearch
+                        v-for="friend in friendsSearch"
+                        :key="friend._id"
+                        v-else
+                        :friend="friend"
+                    />
+                </div>
+            </div>
         </div>
+
         <!-- end search bar -->
 
         <!-- login -->
         <div class="flex-initial">
             <div class="flex justify-end items-center relative">
-                <div class="flex mr-4 items-center">
-                    <div class="block relative">
-                        <button
-                            type="button"
-                            class="inline-block py-2 px-3 hover:bg-gray-200 rounded-full relative"
-                        >
-                            <div class="flex items-center h-5">
-                                <div class="">
-                                    <svg
-                                        viewBox="0 0 16 16"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        aria-hidden="true"
-                                        role="presentation"
-                                        focusable="false"
-                                        style="
-                                            display: block;
-                                            height: 16px;
-                                            width: 16px;
-                                            fill: currentcolor;
-                                        "
-                                    >
-                                        <path
-                                            d="m8.002.25a7.77 7.77 0 0 1 7.748 7.776 7.75 7.75 0 0 1 -7.521 7.72l-.246.004a7.75 7.75 0 0 1 -7.73-7.513l-.003-.245a7.75 7.75 0 0 1 7.752-7.742zm1.949 8.5h-3.903c.155 2.897 1.176 5.343 1.886 5.493l.068.007c.68-.002 1.72-2.365 1.932-5.23zm4.255 0h-2.752c-.091 1.96-.53 3.783-1.188 5.076a6.257 6.257 0 0 0 3.905-4.829zm-9.661 0h-2.75a6.257 6.257 0 0 0 3.934 5.075c-.615-1.208-1.036-2.875-1.162-4.686l-.022-.39zm1.188-6.576-.115.046a6.257 6.257 0 0 0 -3.823 5.03h2.75c.085-1.83.471-3.54 1.059-4.81zm2.262-.424c-.702.002-1.784 2.512-1.947 5.5h3.904c-.156-2.903-1.178-5.343-1.892-5.494l-.065-.007zm2.28.432.023.05c.643 1.288 1.069 3.084 1.157 5.018h2.748a6.275 6.275 0 0 0 -3.929-5.068z"
-                                        ></path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-
                 <div class="block" @click="showLogout = !showLogout">
                     <div class="inline relative">
                         <button
@@ -117,6 +111,7 @@
                                     class="w-5 mr-2"
                                     alt=""
                                 />
+
                                 <div class="text-base" @click="logout">
                                     Đăng xuất
                                 </div>
@@ -131,12 +126,22 @@
 </template>
 
 <script>
+import axios from "axios";
+import config from "@/config/index";
 import { mapGetters } from "vuex";
-
+import ItemSearch from "./ItemSearch.vue";
+import _ from "lodash";
 export default {
     name: "NavComponent",
+    components: { ItemSearch },
     data() {
-        return { showLogout: false };
+        return {
+            showLogout: false,
+            isSearching: false,
+            friendsSearch: [],
+            searchQuery: "",
+            showResult: false,
+        };
     },
     methods: {
         logout() {
@@ -146,6 +151,17 @@ export default {
         },
     },
     computed: mapGetters({ account: "getAccount" }),
+    watch: {
+        searchQuery: _.debounce(async function (query) {
+            const res = await axios.get(
+                `${config.domain}/accounts/search-account`,
+                { params: { searchQuery: query } }
+            );
+            this.isSearching = false;
+            this.showResult = true;
+            this.friendsSearch = res.data.result;
+        }, 1000),
+    },
 };
 </script>
 

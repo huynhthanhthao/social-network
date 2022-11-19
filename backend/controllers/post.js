@@ -30,7 +30,16 @@ const PostCtrl = {
             return res.json({
                 status: true,
                 message: "Tạo bài viết thành công",
-                result: { url, content, name, urlAvatar, _id, likes, comments },
+                result: {
+                    url,
+                    content,
+                    name,
+                    urlAvatar,
+                    _id,
+                    likes,
+                    comments,
+                    accountId: account._id,
+                },
             });
         } catch (error) {
             console.log(error);
@@ -129,6 +138,14 @@ const PostCtrl = {
         try {
             const { userId } = req.query;
             const posts = await Post.find({ accountId: userId });
+
+            if (!posts) {
+                return res.json({
+                    status: false,
+                    message: "Người dùng không tồn tại.",
+                    result,
+                });
+            }
             const result = [];
 
             for (let i = 0; i < posts.length; i++) {

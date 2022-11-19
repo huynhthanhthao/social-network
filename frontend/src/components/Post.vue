@@ -1,15 +1,17 @@
 <template>
-    <div class="bg-white shadow rounded-lg mb-3">
+    <div class="bg-white shadow rounded-lg mb-3 z-2">
         <div class="flex flex-row justify-between items-center px-2 py-3 mx-3">
             <div class="flex">
                 <div
                     class="w-auto h-auto rounded-full border-2 border-green-500"
                 >
-                    <img
-                        class="w-12 h-12 object-cover rounded-full shadow cursor-pointer"
-                        alt="User avatar"
-                        :src="user.urlAvatar"
-                    />
+                    <router-link :to="'/friend/' + post.accountId">
+                        <img
+                            class="w-12 h-12 object-cover rounded-full shadow cursor-pointer"
+                            alt="User avatar"
+                            :src="post.urlAvatar"
+                        />
+                    </router-link>
                 </div>
                 <div class="flex flex-col mb-2 ml-4 mt-1">
                     <div class="text-gray-600 text-sm font-semibold">

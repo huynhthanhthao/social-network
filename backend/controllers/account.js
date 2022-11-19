@@ -69,6 +69,38 @@ const accountCtrl = {
             console.log(error);
         }
     },
+    searchAccount: async function (req, res, next) {
+        try {
+            const { searchQuery } = req.query;
+
+            const accounts = await Account.find({});
+
+            const result = [];
+
+            for (let i = 0; i < accounts.length; i++) {
+                if (
+                    accounts[i].name
+                        .toLowerCase()
+                        .includes(searchQuery.toLowerCase()) ||
+                    accounts[i].username
+                        .toLowerCase()
+                        .includes(searchQuery.toLowerCase())
+                ) {
+                    const { urlAvatar, name, username, _id } = accounts[i];
+
+                    result.push({ urlAvatar, name, username, _id });
+                }
+            }
+
+            return res.json({
+                status: true,
+                message: "Tìm kiếm thành công!",
+                result,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    },
 };
 
 export default accountCtrl;

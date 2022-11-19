@@ -18,10 +18,15 @@ const PostModule = {
 
     mutations: {
         DELETE_POST(state, postId) {
-            for (let i = 0; i < state.postAll; i++) {
+            for (let i = 0; i < state.postAll.length; i++) {
                 if (state.postAll[i]._id == postId) {
                     state.postAll.splice(i, 1);
-                    console.log(123);
+                }
+            }
+
+            for (let i = 0; i < state.postUser.length; i++) {
+                if (state.postUser[i]._id == postId) {
+                    state.postUser.splice(i, 1);
                 }
             }
         },
