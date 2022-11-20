@@ -101,13 +101,14 @@ const PostCtrl = {
                 const comments = [];
 
                 for (let i = 0; i < commentList.length; i++) {
-                    const { name, urlAvatar } = await Account.findOne({
+                    const { name, urlAvatar, _id } = await Account.findOne({
                         _id: commentList[i].accountId,
                     });
 
                     comments.push({
                         name,
                         urlAvatar,
+                        userCommentId: _id,
                         content: commentList[i].content,
                     });
                 }
@@ -163,7 +164,7 @@ const PostCtrl = {
                 const comments = [];
 
                 for (let i = 0; i < commentList.length; i++) {
-                    const { name, urlAvatar } = await Account.findOne({
+                    const { name, urlAvatar, _id } = await Account.findOne({
                         _id: commentList[i].accountId,
                     });
 
@@ -171,6 +172,7 @@ const PostCtrl = {
                         name,
                         urlAvatar,
                         content: commentList[i].content,
+                        userCommentId: _id,
                     });
                 }
 

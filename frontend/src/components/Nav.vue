@@ -11,7 +11,14 @@
         <!-- search bar -->
         <!-- <div class="hidden sm:block flex-shrink flex-grow-0 justify-start px-2"> -->
 
-        <div class="relative hidden sm:block flex-shrink flex-grow-0 z-1">
+        <div
+            class="relative hidden sm:block flex-shrink flex-grow-0 z-1"
+            v-click-outside="
+                () => {
+                    showResult = false;
+                }
+            "
+        >
             <input
                 type="text"
                 class="bg-purple-white bg-gray-100 rounded-lg border-0 p-3 w-full"
@@ -36,7 +43,7 @@
                     ></path>
                 </svg>
             </div>
-            <div class="item-search relative" v-if="searchQuery">
+            <div class="item-search relative" v-if="searchQuery && showResult">
                 <div
                     class="w-[100%] rounded bg-slate-200 shadow-2xl flex flex-col justify-center items-center absolute z-[1] py-1 px-2"
                 >
@@ -64,7 +71,15 @@
         <!-- login -->
         <div class="flex-initial">
             <div class="flex justify-end items-center relative">
-                <div class="block" @click="showLogout = !showLogout">
+                <div
+                    class="block"
+                    @click="showLogout = !showLogout"
+                    v-click-outside="
+                        () => {
+                            showLogout = false;
+                        }
+                    "
+                >
                     <div class="inline relative">
                         <button
                             type="button"
@@ -140,7 +155,7 @@ export default {
             isSearching: false,
             friendsSearch: [],
             searchQuery: "",
-            showResult: false,
+            showResult: true,
         };
     },
     methods: {
@@ -160,7 +175,7 @@ export default {
             this.isSearching = false;
             this.showResult = true;
             this.friendsSearch = res.data.result;
-        }, 1000),
+        }, 500),
     },
 };
 </script>

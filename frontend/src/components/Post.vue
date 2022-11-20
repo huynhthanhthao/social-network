@@ -43,6 +43,7 @@
                     class="absolute w-[132px] bg-red-500 text-gray-50 hover:bg-red-400 py-2 mt-1 font-medium px-2 rounded inline-flex items-center"
                     v-if="showDelete"
                     @click="handleDeletePost"
+                    v-click-outside="() => (showDelete = false)"
                 >
                     <img src="@/assets/garbage.png" class="w-6 mr-1" alt="" />
                     Xóa bài viết
@@ -55,7 +56,7 @@
             {{ post.content }}
         </div>
 
-        <div class="flex justify-center items-center mx-auto">
+        <div class="flex justify-center items-center mx-auto" v-if="post.url">
             <div class="text-gray-400 font-medium text-sm mb-7 px-2">
                 <img
                     class="rounded block h-[500px] w-[500px]"

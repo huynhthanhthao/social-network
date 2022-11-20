@@ -1,5 +1,8 @@
 <template>
-    <div class="create-post animate__fadeIn animate__animated z-10">
+    <div
+        class="py-12 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0 animate__fadeIn animate__animated"
+        id="modal"
+    >
         <div class="status_modal">
             <form>
                 <div class="status_header">
