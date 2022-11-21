@@ -29,7 +29,7 @@
                     <div class="input_images cursor-pointer" v-if="!image.url">
                         <div class="file_upload">
                             <img
-                                src="../assets/picture.png"
+                                src="@/assets/picture.png"
                                 width="40"
                                 class="ml-[20px] cursor-pointer"
                                 @click="showImage"

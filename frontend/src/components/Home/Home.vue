@@ -12,7 +12,7 @@
 
 <script>
 import PostForm from "./PostForm.vue";
-import Post from "./Post.vue";
+import Post from "../Post/Post.vue";
 import HomeLeft from "./HomeLeft.vue";
 import { mapGetters } from "vuex";
 export default {

@@ -129,7 +129,7 @@ const PostCtrl = {
             return res.json({
                 status: true,
                 message: "Lấy danh sách bài viết thành công.",
-                result,
+                result: result.reverse(),
             });
         } catch (error) {
             console.log(error);
@@ -192,7 +192,7 @@ const PostCtrl = {
             return res.json({
                 status: true,
                 message: "Lấy danh sách bài viết tử UserId thành công.",
-                result,
+                result: result.reverse(),
             });
         } catch (error) {
             console.log(error);

@@ -9,10 +9,10 @@ const PostModule = {
     },
     getters: {
         getPostAll(state) {
-            return state.postAll.reverse();
+            return state.postAll;
         },
         getPostUser(state) {
-            return state.postUser.reverse();
+            return state.postUser;
         },
     },
 
@@ -31,24 +31,20 @@ const PostModule = {
             }
         },
         CREATE_POST(state, post) {
-            state.postAll.push(post);
+            state.postAll.unshift(post);
         },
         SET_POST_ALL(state, postList) {
             state.postAll = postList;
         },
         UPDATE_POST(state, postUpdate) {
-            state.postAll = state.postAll
-                .map((post) =>
-                    post._id === postUpdate._id ? postUpdate : post
-                )
-                .reverse();
+            state.postAll = state.postAll.map((post) =>
+                post._id === postUpdate._id ? postUpdate : post
+            );
         },
         UPDATE_POST_USER(state, postUpdate) {
-            state.postUser = state.postUser
-                .map((post) =>
-                    post._id === postUpdate._id ? postUpdate : post
-                )
-                .reverse();
+            state.postUser = state.postUser.map((post) =>
+                post._id === postUpdate._id ? postUpdate : post
+            );
         },
 
         SET_POST_USER(state, postList) {

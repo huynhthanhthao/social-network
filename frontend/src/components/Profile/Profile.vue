@@ -12,7 +12,7 @@
 <script>
 import { mapGetters } from "vuex";
 import Information from "./Information.vue";
-import Post from "./Post.vue";
+import Post from "../Post/Post.vue";
 export default {
     name: "ProfileComponent",
     components: { Information, Post },

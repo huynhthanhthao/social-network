@@ -20,7 +20,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Nav from "./components/Nav.vue";
+import Nav from "./components/Header/Nav.vue";
 import Notify from "./components/Notify.vue";
 import Loading from "./components/Loading.vue";
 

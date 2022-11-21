@@ -17,8 +17,8 @@
 <script>
 import { mapGetters } from "vuex";
 import Information from "./Information.vue";
-import NotFound from "./NotFound.vue";
-import Post from "./Post.vue";
+import NotFound from "../NotFound.vue";
+import Post from "../Post/Post.vue";
 export default {
     name: "FriendComponent",
     components: { Information, Post, NotFound },

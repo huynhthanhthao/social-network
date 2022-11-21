@@ -56,6 +56,7 @@ const AuthCtrl = {
     register: async function (req, res, next) {
         try {
             const { name, username, password } = req.body;
+
             const account = await Account.findOne({ username });
 
             // Check missing data
@@ -76,15 +77,17 @@ const AuthCtrl = {
 
             // All good
             const hashedPassword = await argon2.hash(password);
-            const newAccount = await Account.create({
-                username,
+
+            const newAccount = new Account({
+                ...req.body,
                 password: hashedPassword,
-                name,
             });
+
+            await newAccount.save();
 
             return res.json({
                 status: true,
-                message: "Đăng ký tài khoảng thành công",
+                message: "Đăng ký tài khoản thành công",
                 newAccount,
             });
         } catch (error) {

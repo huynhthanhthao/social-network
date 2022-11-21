@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import Home from "../components/Home.vue";
+import Home from "../components/Home/Home.vue";
 import Register from "../components/Register.vue";
 import Login from "../components/Login.vue";
-import Profile from "../components/Profile.vue";
-import Update from "../components/UpdateInfor.vue";
+import Profile from "../components/Profile/Profile.vue";
+import Update from "../components/Profile/UpdateInfor.vue";
 import NotFound from "../components/NotFound.vue";
-import Friend from "../components/Friend.vue";
+import Friend from "../components/Profile/Friend.vue";
 
 const routes = [
     { path: "/", name: "home", component: Home },
